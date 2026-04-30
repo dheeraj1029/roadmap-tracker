@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Interactive Roadmap Tracker
 
 A beginner-friendly React project that starts with local authentication and then opens a visual roadmap dashboard.
@@ -29,3 +30,4 @@ src/
 npm install
 npm run dev
 ```
+
