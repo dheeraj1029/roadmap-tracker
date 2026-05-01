@@ -8,18 +8,27 @@ import {
   clearSession,
   getSelectedRoadmap,
   getSession,
+  getTheme,
   saveSelectedRoadmap,
   saveSession,
+  saveTheme,
 } from './utils/storage.js';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [selectedRoadmapId, setSelectedRoadmapId] = useState(null);
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     setCurrentUser(getSession());
     setSelectedRoadmapId(getSelectedRoadmap());
+    setTheme(getTheme());
   }, []);
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+    saveTheme(theme);
+  }, [theme]);
 
   function handleLogin(user) {
     saveSession(user);
@@ -36,6 +45,10 @@ function App() {
     setSelectedRoadmapId(null);
   }
 
+  function handleToggleTheme() {
+    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
+  }
+
   function handleLogout() {
     clearSession();
     clearSelectedRoadmap();
@@ -44,7 +57,13 @@ function App() {
   }
 
   if (!currentUser) {
-    return <AuthPage onLogin={handleLogin} />;
+    return (
+      <AuthPage
+        theme={theme}
+        onLogin={handleLogin}
+        onToggleTheme={handleToggleTheme}
+      />
+    );
   }
 
   const selectedRoadmap = roadmaps.find((roadmap) => roadmap.id === selectedRoadmapId);
@@ -53,7 +72,9 @@ function App() {
     return (
       <RoadmapSelector
         user={currentUser}
+        theme={theme}
         onSelectRoadmap={handleSelectRoadmap}
+        onToggleTheme={handleToggleTheme}
         onLogout={handleLogout}
       />
     );
@@ -63,7 +84,9 @@ function App() {
     <Roadmap
       roadmap={selectedRoadmap}
       user={currentUser}
+      theme={theme}
       onBackToSelector={handleBackToSelector}
+      onToggleTheme={handleToggleTheme}
       onLogout={handleLogout}
     />
   );

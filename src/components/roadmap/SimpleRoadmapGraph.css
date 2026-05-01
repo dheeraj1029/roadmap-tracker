@@ -1,0 +1,115 @@
+.simple-roadmap {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+  color: #e8edf5;
+  display: grid;
+  gap: 48px;
+  height: 100%;
+  min-height: calc(100vh - 44px);
+  overflow: auto;
+  padding: 36px;
+}
+
+.simple-roadmap-header p {
+  color: #9fb1cc;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.simple-roadmap-header h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.simple-roadmap-flow {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-width: 760px;
+}
+
+.simple-step {
+  align-items: center;
+  display: flex;
+}
+
+.simple-node {
+  background: rgba(232, 237, 245, 0.12);
+  border: 1px solid rgba(129, 149, 180, 0.34);
+  border-radius: 999px;
+  color: #edf3fb;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  min-width: 170px;
+  padding: 16px 22px;
+  text-align: center;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.simple-node span {
+  font-weight: 700;
+}
+
+.simple-node small {
+  color: #b9c5d8;
+  text-transform: capitalize;
+}
+
+.simple-node:not(:disabled):hover {
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+  transform: translateY(-2px);
+}
+
+.simple-node.locked {
+  color: #9aa8bc;
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.simple-node.in-progress {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.38), rgba(56, 189, 248, 0.16));
+  border-color: rgba(96, 165, 250, 0.48);
+}
+
+.simple-node.completed {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.32), rgba(20, 83, 45, 0.28));
+  border-color: rgba(134, 239, 172, 0.42);
+}
+
+.simple-node.selected {
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.24);
+}
+
+.simple-line {
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.7), rgba(56, 189, 248, 0.24));
+  display: block;
+  height: 2px;
+  width: 76px;
+}
+
+@media (max-width: 980px) {
+  .simple-roadmap {
+    min-height: 560px;
+  }
+
+  .simple-roadmap-flow {
+    align-items: stretch;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .simple-step {
+    flex-direction: column;
+  }
+
+  .simple-line {
+    height: 54px;
+    width: 2px;
+  }
+}

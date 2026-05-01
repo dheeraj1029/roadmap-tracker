@@ -1,38 +1,41 @@
 import './RoadmapCanvas.css';
+import { getCategoryStatus } from '../../utils/roadmapProgress.js';
 
-function RoadmapCanvas({ nodes, progress, selectedNodeId, onSelectNode }) {
+function RoadmapCanvas({ groups, progress, selectedNodeId, onSelectNode }) {
   return (
-    <section className="roadmap-canvas" aria-label="Visual roadmap">
-      <svg className="roadmap-lines" viewBox="0 0 100 70" preserveAspectRatio="none">
-        {nodes.slice(0, -1).map((node, index) => {
-          const nextNode = nodes[index + 1];
-          return (
-            <line
-              key={`${node.id}-${nextNode.id}`}
-              x1={node.x}
-              y1={node.y}
-              x2={nextNode.x}
-              y2={nextNode.y}
-            />
-          );
-        })}
-      </svg>
-
-      {nodes.map((node) => {
-        const status = progress[node.id];
-        const isSelected = selectedNodeId === node.id;
+    <section className="roadmap-canvas" aria-label="Roadmap categories">
+      {groups.map((group) => {
+        const categoryStatus = getCategoryStatus(group, progress);
 
         return (
-          <button
-            className={`roadmap-node ${status} ${isSelected ? 'selected' : ''}`}
-            key={node.id}
-            onClick={() => onSelectNode(node.id)}
-            style={{ left: `${node.x}%`, top: `${node.y}%` }}
-            type="button"
-          >
-            <span>{node.title}</span>
-            <small>{status}</small>
-          </button>
+          <article className={`roadmap-category ${categoryStatus}`} key={group.id}>
+            <div className="category-header">
+              <span>{group.order}</span>
+              <div>
+                <h2>{group.title}</h2>
+                <p>{categoryStatus}</p>
+              </div>
+            </div>
+
+            <div className="topic-list">
+              {group.topics.map((topic) => {
+                const status = progress[topic.id];
+                const isSelected = selectedNodeId === topic.id;
+
+                return (
+                  <button
+                    className={`topic-item ${status} ${isSelected ? 'selected' : ''}`}
+                    key={topic.id}
+                    onClick={() => onSelectNode(topic.id)}
+                    type="button"
+                  >
+                    <span className="topic-title">{topic.title}</span>
+                    <span className="topic-status">{status}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </article>
         );
       })}
     </section>

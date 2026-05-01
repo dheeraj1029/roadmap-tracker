@@ -1,7 +1,8 @@
 import { roadmaps } from '../../data/roadmapData.js';
+import ThemeToggle from '../common/ThemeToggle.jsx';
 import './RoadmapSelector.css';
 
-function RoadmapSelector({ user, onSelectRoadmap, onLogout }) {
+function RoadmapSelector({ user, theme, onSelectRoadmap, onToggleTheme, onLogout }) {
   return (
     <main className="selector-page">
       <section className="selector-shell" aria-label="Choose a roadmap">
@@ -10,9 +11,12 @@ function RoadmapSelector({ user, onSelectRoadmap, onLogout }) {
             <p className="selector-eyebrow">Interactive Roadmap Tracker</p>
             <h1>Choose your roadmap, {user.name}</h1>
           </div>
-          <button className="selector-logout" type="button" onClick={onLogout}>
-            Logout
-          </button>
+          <div className="selector-actions">
+            <ThemeToggle theme={theme} onToggleTheme={onToggleTheme} />
+            <button className="selector-logout" type="button" onClick={onLogout}>
+              Logout
+            </button>
+          </div>
         </div>
 
         <div className="selector-grid">

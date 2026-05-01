@@ -2,6 +2,8 @@ const USERS_KEY = 'roadmapTrackerUsers';
 const SESSION_KEY = 'roadmapTrackerSession';
 const PROGRESS_KEY = 'roadmapTrackerProgress';
 const SELECTED_ROADMAP_KEY = 'roadmapTrackerSelectedRoadmap';
+const THEME_KEY = 'roadmapTrackerTheme';
+const NOTES_KEY = 'roadmapTrackerNotes';
 
 export function getUsers() {
   return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
@@ -35,6 +37,14 @@ export function clearSelectedRoadmap() {
   localStorage.removeItem(SELECTED_ROADMAP_KEY);
 }
 
+export function getTheme() {
+  return localStorage.getItem(THEME_KEY) || 'light';
+}
+
+export function saveTheme(theme) {
+  localStorage.setItem(THEME_KEY, theme);
+}
+
 export function getUserProgress(email, roadmapId) {
   const allProgress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
   return allProgress[email]?.[roadmapId] || {};
@@ -47,4 +57,23 @@ export function saveUserProgress(email, roadmapId, progress) {
     [roadmapId]: progress,
   };
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(allProgress));
+}
+
+export function getTopicNote(email, roadmapId, topicId) {
+  const allNotes = JSON.parse(localStorage.getItem(NOTES_KEY)) || {};
+  return allNotes[email]?.[roadmapId]?.[topicId] || '';
+}
+
+export function saveTopicNote(email, roadmapId, topicId, note) {
+  const allNotes = JSON.parse(localStorage.getItem(NOTES_KEY)) || {};
+
+  allNotes[email] = {
+    ...allNotes[email],
+    [roadmapId]: {
+      ...allNotes[email]?.[roadmapId],
+      [topicId]: note,
+    },
+  };
+
+  localStorage.setItem(NOTES_KEY, JSON.stringify(allNotes));
 }

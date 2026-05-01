@@ -1,0 +1,152 @@
+.roadmap-flow {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+  height: 100%;
+  min-height: calc(100vh - 156px);
+  overflow: hidden;
+}
+
+.roadmap-flow .react-flow__node {
+  cursor: pointer;
+}
+
+.roadmap-flow .react-flow__node:has(.topic-flow-node.locked) {
+  cursor: not-allowed;
+}
+
+.topic-flow-node {
+  align-items: center;
+  background: #eef1f5;
+  border: 1px solid #cfd6df;
+  border-radius: 999px;
+  color: #334158;
+  display: flex;
+  gap: 12px;
+  min-width: 210px;
+  padding: 13px 18px;
+  text-align: left;
+  transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.topic-flow-node:not(.locked):hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 12px 30px rgba(37, 99, 235, 0.2),
+    0 0 22px rgba(56, 189, 248, 0.2);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.topic-flow-node:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.node-dot {
+  border-radius: 999px;
+  flex: 0 0 11px;
+  height: 11px;
+  width: 11px;
+}
+
+.node-text {
+  display: grid;
+  gap: 3px;
+}
+
+.node-text small {
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.topic-flow-node.locked {
+  background: #eef1f5;
+  border-color: #c8d0db;
+  color: #647287;
+  opacity: 0.72;
+}
+
+.topic-flow-node.locked .node-dot {
+  background: #94a3b8;
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.24);
+}
+
+.topic-flow-node.in-progress {
+  background: linear-gradient(135deg, #eaf2ff, #dbeafe);
+  border-color: #7aa2e3;
+  color: #244b82;
+  box-shadow: 0 0 22px rgba(59, 130, 246, 0.2);
+}
+
+.topic-flow-node.in-progress .node-dot {
+  background: #2563eb;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.58);
+}
+
+.topic-flow-node.completed {
+  background: linear-gradient(135deg, #e6f5ec, #dcfce7);
+  border-color: #63a47a;
+  color: #2f6b45;
+}
+
+.topic-flow-node.completed .node-dot {
+  background: #22c55e;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.48);
+}
+
+.topic-flow-node.selected {
+  box-shadow:
+    0 14px 34px rgba(37, 99, 235, 0.28),
+    0 0 30px rgba(56, 189, 248, 0.28);
+  outline: 3px solid rgba(96, 165, 250, 0.34);
+}
+
+.topic-flow-node .react-flow__handle {
+  background: currentColor;
+  border: 2px solid #ffffff;
+  height: 10px;
+  width: 10px;
+}
+
+body[data-theme='dark'] .roadmap-flow {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+}
+
+body[data-theme='dark'] .topic-flow-node.locked {
+  background: #273244;
+  border-color: #53627a;
+  color: #b9c5d8;
+}
+
+body[data-theme='dark'] .topic-flow-node.in-progress {
+  background: linear-gradient(135deg, #203a62, #1e3a8a);
+  border-color: #7aa2e3;
+  color: #d8e7ff;
+}
+
+body[data-theme='dark'] .topic-flow-node.completed {
+  background: linear-gradient(135deg, #23543b, #166534);
+  border-color: #76c390;
+  color: #ddf8e6;
+}
+
+body[data-theme='dark'] .topic-flow-node.selected {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+  outline-color: rgba(122, 162, 227, 0.44);
+}
+
+body[data-theme='dark'] .react-flow__controls-button {
+  background: #1d283b;
+  border-color: rgba(129, 149, 180, 0.34);
+  color: #edf3fb;
+}
+
+@media (max-width: 760px) {
+  .roadmap-flow {
+    height: 560px;
+    min-height: 560px;
+  }
+}

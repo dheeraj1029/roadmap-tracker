@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ThemeToggle from '../common/ThemeToggle.jsx';
 import { getUsers, saveUsers } from '../../utils/storage.js';
 import './AuthPage.css';
 
@@ -8,10 +9,11 @@ const emptyForm = {
   password: '',
 };
 
-function AuthPage({ onLogin }) {
+function AuthPage({ theme, onLogin, onToggleTheme }) {
   const [mode, setMode] = useState('login');
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const isSignup = mode === 'signup';
 
@@ -27,6 +29,7 @@ function AuthPage({ onLogin }) {
     setMode(nextMode);
     setMessage('');
     setForm(emptyForm);
+    setShowPassword(false);
   }
 
   function handleSubmit(event) {
@@ -73,6 +76,10 @@ function AuthPage({ onLogin }) {
 
   return (
     <main className="auth-page">
+      <div className="auth-theme-toggle">
+        <ThemeToggle theme={theme} onToggleTheme={onToggleTheme} />
+      </div>
+
       <div className="auth-orb auth-orb-large" />
       <div className="auth-orb auth-orb-left" />
       <div className="auth-orb auth-orb-right" />
@@ -105,6 +112,7 @@ function AuthPage({ onLogin }) {
               <input
                 name="name"
                 type="text"
+                placeholder="Enter your full name"
                 value={form.name}
                 onChange={updateField}
                 autoComplete="name"
@@ -117,6 +125,7 @@ function AuthPage({ onLogin }) {
             <input
               name="email"
               type="email"
+              placeholder="Enter your email"
               value={form.email}
               onChange={updateField}
               autoComplete="email"
@@ -125,13 +134,45 @@ function AuthPage({ onLogin }) {
 
           <label>
             Password
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={updateField}
-              autoComplete={isSignup ? 'new-password' : 'current-password'}
-            />
+            <span className="password-field">
+              <input
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter your password"
+                value={form.password}
+                onChange={updateField}
+                autoComplete={isSignup ? 'new-password' : 'current-password'}
+              />
+              <button
+                className="password-toggle"
+                type="button"
+                onClick={() => setShowPassword((currentValue) => !currentValue)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  width="20"
+                >
+                  <path
+                    d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                  />
+                  <path
+                    d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                  />
+                </svg>
+              </button>
+            </span>
           </label>
 
           <div className="auth-options">

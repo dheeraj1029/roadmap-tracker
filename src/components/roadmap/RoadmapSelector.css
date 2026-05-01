@@ -24,6 +24,13 @@
   margin-bottom: 24px;
 }
 
+.selector-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
 .selector-eyebrow {
   color: #647287;
   font-size: 14px;
@@ -98,6 +105,42 @@
   background: #ffffff;
 }
 
+body[data-theme='dark'] .selector-page {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(91, 111, 148, 0.34), transparent 18%),
+    radial-gradient(circle at 82% 70%, rgba(37, 49, 70, 0.64), transparent 22%),
+    #111827;
+  color: #e8edf5;
+}
+
+body[data-theme='dark'] .selector-eyebrow,
+body[data-theme='dark'] .selector-card p {
+  color: #b9c5d8;
+}
+
+body[data-theme='dark'] .selector-card {
+  background: rgba(20, 29, 44, 0.66);
+  border-color: rgba(129, 149, 180, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.26);
+}
+
+body[data-theme='dark'] .selector-card:hover {
+  background: rgba(29, 40, 59, 0.8);
+  box-shadow: 0 26px 72px rgba(0, 0, 0, 0.34);
+}
+
+body[data-theme='dark'] .selector-card button,
+body[data-theme='dark'] .selector-logout {
+  background: rgba(232, 237, 245, 0.12);
+  border-color: rgba(129, 149, 180, 0.34);
+  color: #edf3fb;
+}
+
+body[data-theme='dark'] .selector-card button:hover,
+body[data-theme='dark'] .selector-logout:hover {
+  background: rgba(232, 237, 245, 0.2);
+}
+
 @media (max-width: 760px) {
   .selector-header {
     align-items: flex-start;
@@ -110,5 +153,9 @@
 
   .selector-grid {
     grid-template-columns: 1fr;
+  }
+
+  .selector-actions {
+    justify-content: flex-start;
   }
 }
